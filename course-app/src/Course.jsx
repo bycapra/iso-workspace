@@ -9,7 +9,7 @@ function Course({course}) {
         <h4>{title}</h4>
         <h5>{description}</h5>
         <h3>{price}₺</h3>
-        <h6><a href={link} target='_blank'>Ürüne Git</a></h6>
+        <h6><a href={link} target='_blank'>Satın Al</a></h6>
       </div>
     </div>
   )
