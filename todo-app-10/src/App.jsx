@@ -1,19 +1,26 @@
-import { useState } from 'react'
-import './App.css'
-import TodoCreate from './components/TodoCreate'
-import TodoList from './components/TodoList'
+import { useState } from "react";
+import "./App.css";
+import TodoCreate from "./components/TodoCreate";
+import TodoList from "./components/TodoList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useState([]);
+
+  //todo ekle
+  const createTodo = (newTodo) => {
+    setTodos([...todos, newTodo]);
+  };
+
+  console.log("dizi:" + JSON.stringify(todos));
 
   return (
     <div className="App">
-      <div style={{width:'500px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-        <TodoCreate/>
-        <TodoList/>
-      </div>      
+      <div className="main">
+        <TodoCreate onCreateTodo = {createTodo} />
+        <TodoList />
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
