@@ -1,17 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
 import { useSelector, useDispatch } from 'react-redux'
-import  {decrement,increment} from './redux/counterSlice'
+import { getAllUsers } from './redux/userSlice';
+import UserList from './UserList';
+import User from './User';
+
 
 function App() {
-  const state = useSelector((store)=>store.counter);
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch(); //disatch ile fonksiyon cagirmak icin
+  const {users} = useSelector(store=>store.user);
+
+  console.log("users:" + JSON.stringify(users))
+ 
+
+  useEffect(()=>{
+    dispatch(getAllUsers())
+  },[])
 
   return (
     <div>
-      <div>{state.value}</div>
-      <div><button onClick={()=>{dispatch(decrement())}}>Azalt</button><button onClick={()=>{dispatch(increment())}}>Artır</button></div>      
+      {
+        users && users.map((user)=>(
+          <User key={user.id} user={user}/>
+        ))
+      }
     </div>
   )
 }
