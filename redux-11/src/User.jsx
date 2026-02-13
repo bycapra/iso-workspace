@@ -7,5 +7,4 @@ function User({user}) {
     </div>
   )
 }
-
 export default User
