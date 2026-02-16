@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function SingleProduct({product}) {
     const {id,name,price} = product;
-    const navigate =useNavigate();  //Url yonlendirmek için kullanılır. Window.navigator.navigate gibi 
+    const navigate =useNavigate();  //Url yonlendirmek için kullanılır. Window.navigator.navigate gibi.  
     
   return (
     <div style={{marginBottom:'40px'}}>
