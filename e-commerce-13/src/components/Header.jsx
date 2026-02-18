@@ -4,9 +4,12 @@ import logo from "../images/logo.jpg";
 import { FaShoppingBasket } from "react-icons/fa";
 import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
     const [theme, setTheme] = useState(false);
+
+    const navigate = useNavigate()
 
     const changeTheme = () => {
         setTheme(!theme);
@@ -27,7 +30,7 @@ function Header() {
     return (
         <div style={{ display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <div className='flex-row'>
-                <img className='logo' src={logo} />
+                <img className='logo' src={logo} onClick={()=>{navigate('/')}} style={{cursor:'pointer'}} />
                 <p className='logoText'>A Company</p>
             </div>
             <div className='flex-row'>

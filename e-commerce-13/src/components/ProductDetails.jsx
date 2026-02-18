@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetcher, useParams } from 'react-router-dom'
 import { setSelectedProduct } from '../redux/slices/productSlice';
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
 
 function ProductDetails() {
     const { id } = useParams();
@@ -9,6 +11,9 @@ function ProductDetails() {
     const dispatch = useDispatch()
 
     const {price,image,description,title} = selectedProduct;
+
+    //Adetler
+    const [count,setCount] = useState(0);
 
     const getProductById = () => {
         var selectedProductArr = products.filter((e) => { return e.id == id })
@@ -18,6 +23,17 @@ function ProductDetails() {
         }else{
             console.log(id + " id li ürün bulunmadı!");
         }
+    }
+
+    //urun sayısı artırma - azaltma
+    const increase = () =>{
+        setCount(count+1);
+    }
+
+    const decrease = () =>{
+       if(count>0)
+            setCount(count-1);
+        
     }
 
     useEffect(()=>{
@@ -30,9 +46,15 @@ function ProductDetails() {
                 <img src={image} width={300} height={500} alt={description}/>
             </div>
             <div>
-                <h1 style={{fontFamily:'arial'}}>{title}</h2>
+                <h1 style={{fontFamily:'arial'}}>{title}</h1>
                 <h3 style={{fontFamily:'arial',fontSize:'20px'}}>{description}</h3>
-                <h1>{price}₺</h1>
+                <h1 style={{color:'seagreen'}}>{price}₺</h1>
+                <div style={{display:'flex',alignItems:'center'}}>
+                    <CiCircleMinus style={{fontSize:'40px',cursor:'pointer'}} onClick={decrease}/><span style={{fontSize:'35px'}}>{count}</span> <CiCirclePlus style={{fontSize:'40px',cursor:'pointer'}} onClick={increase}/>
+                </div>
+                <div>
+                    <button style={{marginTop:'15px',border:'none',padding:'20px',backgroundColor:'orange',borderRadius:'10px',cursor:'pointer'}}>Sepete Ekle</button>
+                </div>
             </div>
         </div>
     )
