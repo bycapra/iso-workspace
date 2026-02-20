@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetcher, useParams } from 'react-router-dom'
 import { setSelectedProduct } from '../redux/slices/productSlice';
-import { CiCirclePlus } from "react-icons/ci";
-import { CiCircleMinus } from "react-icons/ci";
-import { addToBasket, calculateBasket } from '../redux/slices/basketSlice';
 
 function ProductDetails() {
     const { id } = useParams();
@@ -26,30 +23,6 @@ function ProductDetails() {
         }
     }
 
-    //urun sayısı artırma - azaltma
-    const increase = () =>{
-        setCount(count+1);
-    }
-
-    const decrease = () =>{
-       if(count>0)
-            setCount(count-1);
-        
-    }
-
-    const addBasket = () => {
-        const payload  ={
-            id,
-            price,
-            image,
-            title,
-            description,
-            count
-        }
-        dispatch(addToBasket(payload));
-        dispatch(calculateBasket());
-    }
-
     useEffect(()=>{
         getProductById();
     },[])
@@ -62,13 +35,7 @@ function ProductDetails() {
             <div>
                 <h1 style={{fontFamily:'arial'}}>{title}</h1>
                 <h3 style={{fontFamily:'arial',fontSize:'20px'}}>{description}</h3>
-                <h1 style={{color:'seagreen'}}>{price}₺</h1>
-                <div style={{display:'flex',alignItems:'center'}}>
-                    <CiCircleMinus style={{fontSize:'40px',cursor:'pointer'}} onClick={decrease}/><span style={{fontSize:'35px'}}>{count}</span> <CiCirclePlus style={{fontSize:'40px',cursor:'pointer'}} onClick={increase}/>
-                </div>
-                <div>
-                    <button onClick={addBasket} style={{marginTop:'15px',border:'none',padding:'20px',backgroundColor:'orange',borderRadius:'10px',cursor:'pointer'}}>Sepete Ekle</button>
-                </div>
+                <h1>{price}₺</h1>
             </div>
         </div>
     )
