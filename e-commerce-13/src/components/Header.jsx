@@ -4,9 +4,16 @@ import logo from "../images/logo.jpg";
 import { FaShoppingBasket } from "react-icons/fa";
 import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
+import Badge from '@mui/material/Badge';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDrawer } from '../redux/slices/basketSlice';
+
 
 function Header() {
     const [theme, setTheme] = useState(false);
+
+    var {products} = useSelector((store)=>store.basket)
+    const dispatch = useDispatch();
 
     const changeTheme = () => {
         setTheme(!theme);
@@ -32,11 +39,14 @@ function Header() {
             </div>
             <div className='flex-row'>
                 <input className="input-search" type='text' placeholder='Aramak için yazın' />
-                <div >
-                    <FaShoppingBasket className='icon' />
+                <div >                    
                     {
                         theme ? (<FaMoon className='icon' onClick={changeTheme} />) : <CiLight className='icon' onClick={changeTheme} />
                     }
+                    <Badge onClick={()=>{dispatch(setDrawer())}} badgeContent={products.length} color="error">
+                        <FaShoppingBasket style={{marginRight:'8px'}} className='icon' />
+                    </Badge>
+                   
 
                 </div>
 
