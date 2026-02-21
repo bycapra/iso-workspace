@@ -4,9 +4,16 @@ import logo from "../images/logo.jpg";
 import { FaShoppingBasket } from "react-icons/fa";
 import { CiLight } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa";
+import Badge from '@mui/material/Badge';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDrawer } from '../redux/slices/basketSlice';
+
 
 function Header() {
     const [theme, setTheme] = useState(false);
+
+    var {products} = useSelector((store)=>store.basket)
+    const dispatch = useDispatch();
 
     const changeTheme = () => {
         setTheme(!theme);
@@ -27,7 +34,7 @@ function Header() {
     return (
         <div style={{ display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <div className='flex-row'>
-                <img className='logo' src={logo} onClick={()=>{navigate('/')}} style={{cursor:'pointer'}} />
+                <img className='logo' src={logo} />
                 <p className='logoText'>A Company</p>
             </div>
             <div className='flex-row'>
