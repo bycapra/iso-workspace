@@ -7,6 +7,7 @@ import { FaMoon } from "react-icons/fa";
 import Badge from '@mui/material/Badge';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDrawer } from '../redux/slices/basketSlice';
+import {useNavigate} from 'react-router-dom'
 
 
 function Header() {
@@ -14,6 +15,7 @@ function Header() {
 
     var {products} = useSelector((store)=>store.basket)
     const dispatch = useDispatch();
+    const navigator = useNavigate();
 
     const changeTheme = () => {
         setTheme(!theme);
@@ -34,7 +36,7 @@ function Header() {
     return (
         <div style={{ display: 'flex', flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <div className='flex-row'>
-                <img className='logo' src={logo} />
+                <img className='logo' src={logo} onClick={()=>{navigator('/')}}/>
                 <p className='logoText'>A Company</p>
             </div>
             <div className='flex-row'>
