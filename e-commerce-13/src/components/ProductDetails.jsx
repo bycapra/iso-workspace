@@ -70,6 +70,7 @@ function ProductDetails() {
                     <button onClick={addBasket} style={{marginTop:'15px',border:'none',padding:'20px',backgroundColor:'orange',borderRadius:'10px',cursor:'pointer'}}>Sepete Ekle</button>
                 </div>
             </div>
+            
         </div>
     )
 }

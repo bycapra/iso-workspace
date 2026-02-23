@@ -12,8 +12,8 @@ const getBasketFromStorage = () => {
 const initialState = {
     products: getBasketFromStorage(),
     drawer:false,
-    totalAmount:0
-
+    totalAmount:0,
+    isDeleted:false
 }
 
 const writeFromBasketToStorage = (basket) => {
@@ -45,9 +45,22 @@ export const basketSlice = createSlice({
            state.products && state.products.map((e)=>{
             state.totalAmount += (e.price * e.count);
            })
+        },
+        removeFromBasket:(state,action) => {
+            var productId = action.payload;            
+            const findProduct = state.products && state.products.find((product)=>product.id === productId);
+            if(findProduct){
+                const extractedProducts = state.products.filter((product)=>product.id !== productId);
+                state.products = [...extractedProducts];                
+                writeFromBasketToStorage(state.products);
+                state.isDeleted = true;                
+            }else{   
+                state.isDeleted = false;             
+                return productId + "id li ürün bulunamadı"
+            }
         }
     }    
 })
 
-export const { addToBasket,setDrawer,calculateBasket} = basketSlice.actions
+export const { addToBasket,setDrawer,calculateBasket,removeFromBasket} = basketSlice.actions
 export default basketSlice.reducer
