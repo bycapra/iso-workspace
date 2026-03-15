@@ -1,9 +1,11 @@
 import React, { use, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword,signInWithPopup,GoogleAuthProvider  } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "../Firebase";
 import { useNavigate } from "react-router-dom";
+
+const provider = new GoogleAuthProvider();
 
 function Auth() {
   const [email, setEmail] = useState("");
@@ -43,6 +45,23 @@ const login = async ()=>{
   }
 }
 
+const loginWithGoogle = async() => {
+  try {
+    const response = await signInWithPopup(auth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(response);
+    const token = credential.accessToken;
+    const user= response.user;
+
+    if(user){
+      toast.success("Google ile oturum açma başarılı");
+      navigator("/");
+    }
+  } catch (error) {
+    toast.error("Hata oluştu: " + error.message)
+    
+  }
+}
+
 
   return (
     <div className="auth">
@@ -62,7 +81,7 @@ const login = async ()=>{
         />
       </div>
       <div>
-        <button className="google-button">
+        <button className="google-button" onClick={loginWithGoogle}>
           <FaGoogle style={{ marginTop: "2px" }} /> Google ile Giriş Yap
         </button>
         <button className="login-button" onClick={login}>Giriş Yap</button>
